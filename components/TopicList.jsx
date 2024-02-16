@@ -23,8 +23,9 @@ export default async function TopicList() {
   return (
     <>
       {/* Content */}
-      {topics.map((item) => (
+      {topics.map((item,index) => (
         <div
+          key={index}
           className="p-4 border 
               border-slate-300 my-3 rounded-md 
               flex justify-between gap-5 items-start"
