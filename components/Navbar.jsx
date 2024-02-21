@@ -7,7 +7,7 @@ export default function Navbar() {
       <Link className="text-white font-bold " href={"/"}>
         Task App
       </Link>
-      <Link className="bg-white p-2 rounded-md hover:" href={"/addTopic"}>
+      <Link className="bg-white p-2 rounded-md hover:" href={"/AddTopic"}>
         Add Topic
       </Link>
     </nav>
