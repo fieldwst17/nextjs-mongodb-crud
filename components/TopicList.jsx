@@ -23,7 +23,7 @@ export default async function TopicList() {
   return (
     <>
       {/* Content */}
-      {topics.map((item,index) => (
+      {topics.map((item, index) => (
         <div
           key={index}
           className="p-4 border 
@@ -34,7 +34,9 @@ export default async function TopicList() {
             <h2 className="font-bold text-2xl underline underline-offset-2">
               {item.title}
             </h2>
-            <div>{item.description}</div>
+            <div>รายละเอียด : {item.description}</div>
+            <div>สร้างเมื่อ : {new Date(item.createdAt).toLocaleDateString()}</div>
+            <div>อัปเดตหัวข้อเมื่อ : {new Date(item.updatedAt).toLocaleDateString()}</div>
           </div>
 
           {/* ICONS */}
