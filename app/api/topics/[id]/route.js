@@ -2,6 +2,7 @@ import Topic from "@/models/topic";
 import { NextResponse } from "next/server";
 import connectMongoDB from "@/lib/mongodb";
 
+// อัปเดต
 export async function PUT(request, { params }) {
   const { id } = params;
   const { newTitle: title, newDescription: description } = await request.json();
@@ -10,6 +11,7 @@ export async function PUT(request, { params }) {
   return NextResponse.json({ message: "Topic updated" }, { status: 200 });
 }
 
+// คำสั่งลบ
 export async function GET(request, { params }) {
   const { id } = params;
   await connectMongoDB();
