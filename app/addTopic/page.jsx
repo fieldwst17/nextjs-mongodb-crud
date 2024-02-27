@@ -3,35 +3,40 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function AddTopic() {
+  
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [successMessage, setSuccessMessage] = useState("บันทึกข้อมูลเรียบร้อย");
 
   const router = useRouter();
 
   const handleSumbit = async (e) => {
+    const confirmed = window.confirm("ต้องการบันทึกข้อมูลหรือไม่");
     e.preventDefault();
     if (!title || !description) {
       alert("กรอกหัวข้อและรายละเอียด !!");
       return;
     }
+    if (confirmed) {
+      try {
+        const res = await fetch("http://localhost:3000/api/topics", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({ title, description }),
+        });
 
-    try {
-      const res = await fetch("http://localhost:3000/api/topics", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({ title, description }),
-      });
-
-      if (res.ok) {
-        router.push("/");
-        router.refresh()
-      } else {
-        throw new Error("Failed to create a topic");
+        if (res.ok) {
+          alert(`${successMessage}`)
+          router.push("/");
+          router.refresh();
+        } else {
+          throw new Error("Failed to create a topic");
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -54,9 +59,10 @@ export default function AddTopic() {
         placeholder="รายละเอียด"
       />
       <div className="block justify-center items-center">
-        <button 
-        type="submit"
-        className="bg-green-500 w-fit px-5 py-3 font-bold text-white rounded-md hover:bg-green-600">
+        <button
+          type="submit"
+          className="bg-green-500 w-fit px-5 py-3 font-bold text-white rounded-md hover:bg-green-600"
+        >
           เพิ่มหัวข้อ
         </button>
       </div>

@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { HiOutlineTrash } from "react-icons/hi";
 export default function RemoveBtn({ id }) {
-  const router = useRouter();
 
   // Remove
   const removeTopic = async () => {
@@ -17,7 +16,7 @@ export default function RemoveBtn({ id }) {
       });
 
       if (res.ok) {
-        router.refresh();
+        window.location.reload()
       }
     }
   };

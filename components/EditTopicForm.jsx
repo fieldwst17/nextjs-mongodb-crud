@@ -9,24 +9,32 @@ export default function EditTopicForm({ id, title, description }) {
   const router = useRouter();
 
   const handleSubmit = async (e) => {
+    const confirmed = window.confirm("ต้องการอัปเดตข้อมูลหรือไม่");
     e.preventDefault();
+    if (!title || !description) {
+      alert("กรอกข้อมูลให้ครบถ้วน");
+      return;
+    }
 
-    try {
-      const res = await fetch(`http://localhost:3000/api/topics/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({ newTitle, newDescription }),
-      });
+    if (confirmed) {
+      try {
+        const res = await fetch(`http://localhost:3000/api/topics/${id}`, {
+          method: "PUT",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({ newTitle, newDescription }),
+        });
 
-      if (!res.ok) {
-        throw new Error("Faild to updated");
+        if (!res.ok) {
+          throw new Error("Faild to updated");
+        }
+        alert('อัปเดตข้อมูลสำเร็จ')
+        router.push("/");
+        router.refresh();
+      } catch (error) {
+        console.log(error);
       }
-      router.push("/");
-      router.refresh();
-    } catch (error) {
-      console.log(error);
     }
   };
 
